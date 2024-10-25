@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
-import glsl from 'vite-plugin-glsl';
+import glsl from 'vite-plugin-glsl'
 
-// vite.config.js
 export default defineConfig({
   plugins: [glsl()],
   server: {
@@ -16,11 +15,15 @@ export default defineConfig({
     minify: true,
     manifest: true,
     rollupOptions: {
-      input: './src/main.js',
+      input: {
+        cmsfilters: './src/cmsfilters.js',
+        cmssort: './src/cmssort.js',
+        cmsnest: './src/cmsnest.js',
+      },
       output: {
-        format: 'umd',
-        entryFileNames: 'main.js',
-        esModule: false,
+        format: 'es', // Switch to 'es' for code-splitting support
+        entryFileNames: '[name].js',
+        esModule: true, // Keep this as true for ES modules
         compact: true,
         globals: {
           jquery: '$',
